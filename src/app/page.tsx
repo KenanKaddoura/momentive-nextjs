@@ -1,9 +1,10 @@
 import Image from "next/image";
+import TasksList from "./tasks/TasksList";
 
 export default function Home() {
   return (
-    <>
-      <h1 className="text-3xl font-bold underline">Hello World</h1>
-    </>
+    <div className="app-bg flex items-center justify-center">
+      <TasksList />
+    </div>
   );
 }
