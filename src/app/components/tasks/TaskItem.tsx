@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import type { Identifier, XYCoord } from "dnd-core";
-import { Task } from "../store/useTaskStore";
+import { Task } from "../../store/useTaskStore";
 
 interface TaskItemProps {
   task: Task;
