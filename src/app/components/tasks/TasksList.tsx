@@ -1,8 +1,6 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
 import { useTaskStore } from "../../store/useTaskStore";
 import { TaskItem } from "./TaskItem";
 
@@ -26,7 +24,6 @@ export default function TasksList() {
   };
 
   return (
-    <DndProvider backend={HTML5Backend}>
       <div className="flex h-[46rem] w-full max-w-sm flex-col rounded-3xl bg-slate-50 p-6 shadow-2xl m-2">
         <header className="mb-4">
           <h2 className="text-xl font-semibold text-slate-700">Tasks</h2>
@@ -88,6 +85,5 @@ export default function TasksList() {
           </div>
         </form>
       </div>
-    </DndProvider>
   );
 }

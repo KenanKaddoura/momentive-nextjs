@@ -7,6 +7,7 @@ export type Task = {
   title: string;
   createdAt: Date;
   done: boolean;
+  assignedDay: string;
 };
 
 // Define store state and actions
@@ -24,6 +25,7 @@ const createTask = (title: string): Task => ({
   title,
   createdAt: new Date(),
   done: false,
+  assignedDay: "default"
 });
 
 // Create the store with persistence
