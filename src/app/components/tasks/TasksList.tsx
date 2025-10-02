@@ -25,10 +25,10 @@ export default function TasksList() {
   };
 
   return (
-    <div className="flex h-[46rem] w-full max-w-sm flex-col rounded-3xl bg-slate-50 p-6 shadow-2xl m-2">
+    <div className="flex h-[46rem] w-full max-w-sm flex-col rounded-xl bg-slate-50 p-6 shadow-2xl m-2">
       <header className="mb-4">
         <h2 className="text-xl font-semibold text-slate-700">Tasks</h2>
-        <p className="text-sm text-slate-500">
+        <p className="text-sm text-slate-500 border-b border-solid border-blue-500 pb-2 mb-3">
           What are your plans? (drag to reorder)
         </p>
       </header>

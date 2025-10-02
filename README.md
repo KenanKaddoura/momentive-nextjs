@@ -42,10 +42,17 @@ Week Actions
 
 Tomorrow;
 
-* Do project feature: projectStore, ProjectUI
-* Do Drag and Drop from task list to week canvas
-* 
+* ~~* Do Drag and Drop from task list to week canvas*~~
 
+* Do project feature: projectStore, ProjectUI (Colored tasks based on project)
+* Support Right Allingment For Arabic !
+* Auto Add to certain day
+* Filter tasks
+* clear functionality
+
+After Above
+
+* Start in backend and Data base staff 
 
 
 

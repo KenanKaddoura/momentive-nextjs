@@ -60,7 +60,7 @@ export const useTaskStore = create<TaskStore>()(
         set((state) => ({
           tasks: state.tasks.filter((task) => task.id !== taskId),
         })),
-
+        
       // Fixed reorderTasks function
       reorderTasks: (
         taskId: string,

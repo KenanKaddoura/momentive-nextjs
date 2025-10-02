@@ -17,10 +17,10 @@ const WeekDay = ({ day }: WeekDayProps) => {
   const tasks = useTasksByDay(day);
 
   return (
-    <div className="shadow-lg min-w-36 h-full pt-3 pb-3 ps-2 pe-1 bg-slate-100 border border-emerald-400 rounded-xl flex flex-col">
-      <h3 className="border-b border-solid border-blue-500 pb-2 mb-3 text-sm font-medium text-slate-700">
+    <div className="shadow-lg min-w-36 h-full pt-3 pb-3 ps-2 pe-1 bg-slate-100 border border-emerald-300 rounded-xl flex flex-col">
+      <h3 className="text-center border-b border-solid border-blue-500 pb-2 mb-3 text-slate-800">
         {day}
-      </h3>
+      </h3> 
 
       <DroppableTaskList
         listName={day}

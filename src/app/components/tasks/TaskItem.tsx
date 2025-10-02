@@ -82,7 +82,7 @@ export const TaskItem = ({
         >
           {task.title}
         </p>
-        <p className="text-[10px] text-slate-400 truncate">
+        <p className="select-none text-[10px] text-slate-400 truncate">
           {formatDisplayDate(task.createdAt)}
         </p>
       </div>

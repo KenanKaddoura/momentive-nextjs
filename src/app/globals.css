@@ -6,10 +6,14 @@
   html, body, :root {
     height: 100%;
   }
-
 }
 
 @layer components {
+
+  body { 
+    @apply font-mono font-extrabold
+  }
+
   .app-bg {
     @apply bg-gradient-to-r from-teal-400 to-blue-500 h-full w-full;
   }
