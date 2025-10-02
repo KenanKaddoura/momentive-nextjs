@@ -1,77 +1,106 @@
 "use client";
 
-
-import { useRef } from "react";
+import { useDraggable } from "@dnd-kit/core";
 import { Task } from "../../store/useTaskStore";
 
 interface TaskItemProps {
   task: Task;
   index: number;
-  moveTask: (dragIndex: number, hoverIndex: number) => void;
   toggleTask: (id: string) => void;
   removeTask: (id: string) => void;
-}
-
-interface DragItem {
-  index: number;
-  id: string;
-  type: string;
+  listName: string;
 }
 
 export const TaskItem = ({
   task,
   index,
-  moveTask,
   toggleTask,
   removeTask,
+  listName,
 }: TaskItemProps) => {
-  const ref = useRef<HTMLDivElement>(null);
-
+  const { attributes, listeners, setNodeRef, transform, isDragging } =
+    useDraggable({
+      id: task.id,
+      data: {
+        type: "task",
+        task,
+        index,
+        list: listName,
+      },
+    });
 
   // Format date for display
   const formatDisplayDate = (date: Date) =>
     date.toLocaleString(undefined, {
       month: "short",
       day: "numeric",
-      hour: "numeric",
-      minute: "2-digit",
     });
+
+  const style = transform
+    ? {
+        transform: `translate(${transform.x}px, ${transform.y}px)`
+      }
+    : undefined;
 
   return (
     <div
-      ref={ref}
-      className="flex items-start gap-3 rounded-2xl bg-white p-4 shadow-sm ring-1 ring-slate-100 transition hover:ring-indigo-200 cursor-move"
+      ref={setNodeRef}
+      style={style}
+      className={`flex items-center gap-2 rounded-lg bg-white p-2 shadow-lg ring-1 ring-slate-100 hover:ring-indigo-200 ${
+        isDragging ? "opacity-80 cursor-grabbing shadow-md" : ""
+      }`}
+
     >
+      {/* Compact drag handle */}
+      <div 
+        {...listeners}
+        {...attributes}
+        className="cursor-grab flex items-center justify-center w-3 h-3 text-slate-400 hover:text-slate-600 flex-shrink-0">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
+          <circle cx="3" cy="3" r="2" />
+          <circle cx="9" cy="3" r="2" />
+          <circle cx="3" cy="9" r="2" />
+          <circle cx="9" cy="9" r="2" />
+        </svg>
+      </div>
+
+      {/* Compact checkbox */}
       <input
         type="checkbox"
         checked={task.done}
         onChange={() => toggleTask(task.id)}
-        className="mt-1 h-4 w-4 rounded border-slate-300 text-indigo-500 focus:ring-indigo-400"
+        className="h-3 w-3 rounded border-slate-300 text-indigo-500 focus:ring-indigo-400 flex-shrink-0"
+        onClick={(e) => e.stopPropagation()}
       />
-      <div className="flex-1">
+
+      {/* Compact content */}
+      <div className="flex-1 min-w-0">
         <p
-          className={`text-sm font-medium text-slate-700 ${
-            task.done ? "line-through text-slate-400" : ""
+          className={`select-all text-xs font-mediu  truncate ${
+            task.done ? "line-through text-slate-400" : "text-slate-700"
           }`}
         >
           {task.title}
         </p>
-        <p className="text-xs text-slate-400">
+        <p className="text-[10px] text-slate-400 truncate">
           {formatDisplayDate(task.createdAt)}
         </p>
       </div>
+
+      {/* Compact delete button */}
       <button
         onClick={(e) => {
           e.preventDefault();
+          e.stopPropagation();
           removeTask(task.id);
         }}
-        className="text-slate-400 hover:text-red-500 transition-colors"
+        className="text-slate-400 hover:text-red-500 transition-colors p-0.5 flex-shrink-0"
         aria-label="Delete task"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
+          width="12"
+          height="12"
           fill="currentColor"
           viewBox="0 0 16 16"
         >

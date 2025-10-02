@@ -1,48 +1,35 @@
 "use client";
 
-
-import React from 'react'
-import { Task, useTaskStore } from '@/app/store/useTaskStore';
-import { TaskItem } from '../tasks/TaskItem';
+import React from "react";
+import { useTaskStore } from "@/app/store/useTaskStore";
+import { useTasksByDay } from "@/app/hooks/useTasksByDay";
+import { DroppableTaskList } from "../tasks/DroppableTaskList";
 
 interface WeekDayProps {
-    day: string;
-    tasks: Task[];
+  day: string;
 }
 
+const WeekDay = ({ day }: WeekDayProps) => {
+  const toggleTask = useTaskStore((state) => state.toggleTask);
+  const removeTask = useTaskStore((state) => state.removeTask);
 
-const WeekDay = ({day, tasks} : WeekDayProps) => {
-
-  const reorderTasks = useTaskStore((state) => state.reorderTasks)
-  const toggleTask = useTaskStore((state) => state.toggleTask)
-  const removeTask = useTaskStore((state) => state.removeTask)
+  // tasks -- > day
+  const tasks = useTasksByDay(day);
 
   return (
-    <div className='flex-1 overflow-y-auto pr-2 min-w-36 h-full p-3 bg-slate-100 border border-emerald-400 rounded-xl'>
-      <h3 className='border-b border-solid border-blue-500'>{day}</h3>
+    <div className="shadow-lg min-w-36 h-full pt-3 pb-3 ps-2 pe-1 bg-slate-100 border border-emerald-400 rounded-xl flex flex-col">
+      <h3 className="border-b border-solid border-blue-500 pb-2 mb-3 text-sm font-medium text-slate-700">
+        {day}
+      </h3>
 
-          <ul className="space-y-3">
-            {tasks.map((task, index) => (
-              <li key={task.id}>
-                <TaskItem
-                  task={task}
-                  index={index}
-                  moveTask={reorderTasks}
-                  toggleTask={toggleTask}
-                  removeTask={removeTask}
-                />
-              </li>
-            ))}
-          </ul>
-
-          {/* Empty List State */}
-          {tasks.length === 0 && (
-            <p className="rounded-md bg-white p-2 mt-3 text-center text-sm text-slate-400">
-              Drag a Task From List
-            </p>
-          )}
+      <DroppableTaskList
+        listName={day}
+        tasks={tasks}
+        toggleTask={toggleTask}
+        removeTask={removeTask}
+      />
     </div>
-  )
-}
+  );
+};
 
-export default WeekDay
+export default WeekDay;

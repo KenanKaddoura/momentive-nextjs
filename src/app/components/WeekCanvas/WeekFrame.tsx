@@ -1,29 +1,34 @@
 "use client";
 
-
-import React from 'react'
-import WeekDay from './WeekDay'
-
-import { useTaskStore } from '@/app/store/useTaskStore';
-
+import React from "react";
+import WeekDay from "./WeekDay";
 
 const WeekFrame = () => {
-
-  const days = ["Sunday",  "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-
-  const tasks = useTaskStore((state) => state.tasks)
+  const days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
 
   return (
-      <div className='grid grid-cols-4 gap-4 justify-evenly h-[46rem] w-full max-w-7xl rounded-3xl bg-slate-50 p-3 shadow-2xl m-2'>
+    <div className="grid grid-cols-4 grid-rows-2 gap-4 h-[46rem] w-full max-w-7xl rounded-xl bg-slate-50 p-4 shadow-2xl m-2">
+      {/* First row - 4 days */}
+      {days.slice(0, 4).map((day, i) => (
+        <WeekDay key={i} day={day} />
+      ))}
 
-          {days.map((day, i) => (
-              <WeekDay key={i} day={day} tasks={tasks.filter((task) => task.assignedDay == day)}/>
-          ))}
+      {/* Second row - 3 days + More Tasks */}
+      {days.slice(4).map((day, i) => (
+        <WeekDay key={i + 4} day={day} />
+      ))}
 
-          <WeekDay day="More Tasks" tasks={tasks.filter((task) => task.assignedDay == "more_tasks")}/>
-      </div>
+      <WeekDay key={days.length} day="More Tasks" />
+    </div>
+  );
+};
 
-  )
-}
-
-export default WeekFrame
+export default WeekFrame;
